@@ -1,7 +1,9 @@
 # Native compilation on ARM/ARM64 host
 
+ROOTDIR=$(pwd)
+
 # Build MPP
-mkdir -p ~/dev && cd ~/dev
+mkdir -p $ROOTDIR/compile && cd $ROOTDIR/compile
 git clone -b jellyfin-mpp --depth=1 https://github.com/nyanmisaka/mpp.git rkmpp
 pushd rkmpp
 mkdir rkmpp_build
@@ -17,7 +19,7 @@ make install
 
 
 # Build RGA
-mkdir -p ~/dev && cd ~/dev
+mkdir -p $ROOTDIR/compile && cd $ROOTDIR/compile 
 git clone -b jellyfin-rga --depth=1 https://github.com/nyanmisaka/rk-mirrors.git rkrga
 meson setup rkrga rkrga_build \
     --prefix=/usr \
@@ -32,7 +34,7 @@ ninja -C rkrga_build install
 
 
 # Build the minimal FFmpeg (You can customize the configure and install prefix)
-mkdir -p ~/dev && cd ~/dev
+mkdir -p $ROOTDIR/compile && cd $ROOTDIR/compile
 git clone --depth=1 https://github.com/nyanmisaka/ffmpeg-rockchip.git ffmpeg
 cd ffmpeg
 ./configure --prefix=/usr --enable-gpl --enable-version3 --enable-libdrm --enable-rkmpp --enable-rkrga --enable-libfreetype --enable-libharfbuzz
@@ -46,6 +48,6 @@ make -j $(nproc)
 # Install FFmpeg to the prefix path
 make install
 
-cd ~/
+cd $ROOTDIR
 
-rm -rf ~/dev
+rm -rf $ROOTDIR/compile
