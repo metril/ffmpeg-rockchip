@@ -5,9 +5,9 @@ ROOTDIR=$(pwd)
 # Build MPP
 mkdir -p $ROOTDIR/compile && cd $ROOTDIR/compile
 git clone -b jellyfin-mpp --depth=1 https://github.com/nyanmisaka/mpp.git rkmpp
-pushd rkmpp
+cd rkmpp
 mkdir rkmpp_build
-pushd rkmpp_build
+cd rkmpp_build
 cmake \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release \
